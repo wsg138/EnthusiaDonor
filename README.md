@@ -4,6 +4,8 @@ Standalone donor leaderboard plugin for Paper/Purpur/Leaf servers using Tebex's 
 
 It does not depend on the old BuyCraftAPI PlaceholderAPI expansion or Tebex plugin internals. Tebex data is fetched asynchronously, written to SQLite, reduced into safe donor totals, cached in memory, and exposed through PlaceholderAPI placeholders.
 
+For the current **player-facing Enthusia SMP behavior**—what counts toward donor totals, monthly/all-time boards, refresh cadence, and public privacy boundaries—see **[`PLAYER_GUIDE.md`](PLAYER_GUIDE.md)**. This README remains the technical source/export reference.
+
 ## Source Of Truth
 
 Donor totals are calculated only from Tebex payment records. EnthusiaDonors does not read LuckPerms ranks, permissions, Vault groups, rank names, online player permissions, or assigned donor packages/ranks when calculating money spent.
