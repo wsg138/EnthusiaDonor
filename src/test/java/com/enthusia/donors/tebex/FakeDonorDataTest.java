@@ -18,12 +18,12 @@ final class FakeDonorDataTest {
         for (int i = 0; i < payments.size(); i++) {
             PaymentRecord payment = payments.get(i);
             int number = i + 1;
-            assertEquals("fake-" + number, payment.transactionId());
+            assertEquals("fake-" + number, payment.paymentIdHash());
             assertEquals("TestDonor" + number, payment.playerName());
             assertEquals("USD", payment.currency());
             assertEquals("Complete", payment.status());
-            assertFalse(payment.refunded());
-            assertFalse(payment.chargeback());
+            assertFalse(payment.refundedOrChargeback());
+            assertFalse(payment.manualPayment());
             assertEquals(List.of(1000 + number), payment.packageIds());
         }
     }
