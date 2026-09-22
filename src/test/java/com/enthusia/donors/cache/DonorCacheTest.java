@@ -26,7 +26,7 @@ final class DonorCacheTest {
         DonorEntry carol = donor(CAROL_ID, "Carol", "0", "9.00", 99, 1);
         DonorCache cache = new DonorCache();
 
-        cache.replace(List.of(alice, bob, carol), Instant.parse("2026-01-02T03:04:05Z"), RefreshState.READY);
+        cache.replace(List.of(alice, bob, carol), Instant.parse("2026-01-02T03:04:05Z"), RefreshState.OK);
 
         assertEquals(List.of(bob, alice), cache.snapshot().alltime());
         assertEquals(List.of(carol, bob), cache.snapshot().monthly());
@@ -40,7 +40,7 @@ final class DonorCacheTest {
     void snapshotIndexesPlayersByUuidAndCaseInsensitiveName() {
         DonorEntry alice = donor(ALICE_ID, "Alice", "10", "2", 1, 1);
         DonorCache cache = new DonorCache();
-        cache.replace(List.of(alice), Instant.EPOCH, RefreshState.READY);
+        cache.replace(List.of(alice), Instant.EPOCH, RefreshState.OK);
 
         assertSame(alice, cache.snapshot().byUuid(ALICE_ID).orElseThrow());
         assertSame(alice, cache.snapshot().byName("alice").orElseThrow());
@@ -55,7 +55,7 @@ final class DonorCacheTest {
         DonorEntry duplicate = donor(ALICE_ID, "ALICE", "20", "2", 2, 2);
         DonorCache cache = new DonorCache();
 
-        cache.replace(List.of(first, duplicate), Instant.EPOCH, RefreshState.READY);
+        cache.replace(List.of(first, duplicate), Instant.EPOCH, RefreshState.OK);
 
         assertSame(first, cache.snapshot().byUuid(ALICE_ID).orElseThrow());
         assertSame(first, cache.snapshot().byName("alice").orElseThrow());
@@ -84,8 +84,8 @@ final class DonorCacheTest {
         assertEquals(RefreshState.TEBEX_NOT_CONFIGURED, cache.state());
 
         Instant success = Instant.parse("2026-02-03T04:05:06Z");
-        cache.replace(List.of(), success, RefreshState.READY);
-        assertEquals(RefreshState.READY, cache.state());
+        cache.replace(List.of(), success, RefreshState.OK);
+        assertEquals(RefreshState.OK, cache.state());
         assertEquals("", cache.lastError());
         assertEquals(success, cache.lastSuccessfulRefresh());
         assertFalse(cache.snapshot().updatedAt() == null);
